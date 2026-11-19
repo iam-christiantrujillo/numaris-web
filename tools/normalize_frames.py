@@ -1,6 +1,6 @@
 """Copia y renombra las secuencias de _source/ a frames/<vehiculo>/<desktop|mobile>/NNN.webp
 Uso: python3 tools/normalize_frames.py
-Detecta el vehículo por el nombre de la carpeta (PESADOS/DISTRIBU/LIGEROS) y la variante por
+Detecta el vehículo por el nombre de la carpeta (PESADOS/DISTRIBU/LIGEROS/PASAJEROS) y la variante por
 'mobile' en la ruta. Solo toma .webp; ignora PNG y archivos sueltos."""
 import os, re, shutil, struct, sys, json
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,6 +10,7 @@ def vehicle(path):
     if 'PESAD' in p or 'CAMION' in p: return 'pesados'
     if 'DISTRIBU' in p or 'CAJA' in p: return 'distribucion'
     if 'LIGER' in p or 'SEDAN' in p: return 'ligeros'
+    if 'PASAJ' in p or 'AUTOBUS' in p: return 'pasajeros'
 def webp_info(fp):
     with open(fp, 'rb') as f: b = f.read(64)
     if b[:4] != b'RIFF' or b[8:12] != b'WEBP': return None
